@@ -3,10 +3,17 @@ export default defineNuxtConfig({
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: '2026-07-29',
 
-  // Habilito el módulo de Tailwind para los estilos de la interfaz
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@primevue/nuxt-module'
   ],
+
+  // Configuro PrimeVue para utilizar el sistema de temas moderno y evitar conflictos de CSS
+  primevue: {
+    options: {
+      unstyled: true
+    }
+  },
 
   // Fuerzo el modo de pre-renderizado para todas las rutas para garantizar el mejor SEO
   routeRules: {
