@@ -1,17 +1,16 @@
 <template>
-  <!-- Cambio el fondo base a bg-neutral-950 (negro casi absoluto) -->
   <section id="portfolio" class="py-24 bg-neutral-950">
     <div class="container mx-auto px-4">
       <h2 class="text-5xl font-bold text-center text-white mb-16 tracking-tight">
         Nuestro Trabajo
       </h2>
 
-      <!-- Filtros actualizados a modo oscuro -->
+      <!-- Filtros de categorías -->
       <div class="flex flex-wrap justify-center gap-4 mb-16">
         <button
           v-for="category in filterCategories"
           :key="category.value"
-          @click="activeCategory = category.value"
+          @click="setCategory(category.value)"
           :class="[
             'px-8 py-3 rounded-full transition-all duration-300 text-lg font-medium',
             activeCategory === category.value
@@ -23,37 +22,68 @@
         </button>
       </div>
 
-      <!-- Tarjetas -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          v-for="project in filteredProjects"
-          :key="project.id"
-          @click="openProjectDetails(project)"
-          class="group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800 cursor-pointer transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
+      <!-- Contenedor dinámico: Layout editorial -->
+      <div class="flex flex-col lg:flex-row gap-12 items-start">
+        
+        <!-- 
+          Columna lateral de información. 
+          Usamos sticky para que el texto acompañe al usuario mientras hace scroll por las fotos.
+        -->
+        <div 
+          v-if="activeCategoryDetails" 
+          class="lg:w-1/3 lg:sticky lg:top-36 transition-all duration-500"
         >
-          <div class="aspect-video bg-neutral-800 relative overflow-hidden">
-            <div v-if="project.clientName" class="absolute top-4 right-4 z-10 bg-black/80 text-white text-sm font-bold px-4 py-1.5 rounded-full backdrop-blur-sm">
-              {{ project.clientName }}
+          <h3 class="text-4xl font-bold text-white mb-6 leading-tight">
+            {{ activeCategoryDetails.title }}
+          </h3>
+          <!-- Quitamos el fondo e incrementamos el contraste del texto para un aspecto más limpio -->
+          <p class="text-neutral-400 text-xl leading-relaxed">
+            {{ activeCategoryDetails.description }}
+          </p>
+        </div>
+
+        <!-- 
+          Cuadrícula de proyectos.
+          Si hay categoría activa, ocupa 2/3 del ancho (2 columnas). 
+          Si está en "Todos", ocupa el ancho completo (3 columnas).
+        -->
+        <div 
+          :class="[
+            'w-full grid gap-8 transition-all duration-500',
+            activeCategory !== 'all' ? 'lg:w-2/3 grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+          ]"
+        >
+          <div
+            v-for="project in filteredProjects"
+            :key="project.id"
+            @click="openProjectDetails(project)"
+            class="group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800 cursor-pointer transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
+          >
+            <div class="aspect-video bg-neutral-800 relative overflow-hidden">
+              <div v-if="project.clientName" class="absolute top-4 right-4 z-10 bg-black/80 text-white text-sm font-bold px-4 py-1.5 rounded-full backdrop-blur-sm">
+                {{ project.clientName }}
+              </div>
+              <!-- Simulación de imagen -->
+              <div class="absolute inset-0 flex items-center justify-center text-neutral-600 bg-neutral-800">
+                <span class="text-lg">{{ project.images[0] }}</span>
+              </div>
             </div>
-            <!-- Simulación de imagen -->
-            <div class="absolute inset-0 flex items-center justify-center text-neutral-600 bg-neutral-800">
-              <span class="text-lg">{{ project.images[0] }}</span>
+            <!-- Textos de tarjeta -->
+            <div class="p-8">
+              <h3 class="text-2xl font-bold mb-3 text-white">
+                {{ project.title }}
+              </h3>
+              <p class="text-neutral-400 text-lg leading-relaxed line-clamp-2">
+                {{ project.description }}
+              </p>
             </div>
-          </div>
-          <!-- Textos de tarjeta ampliados -->
-          <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-white">
-              {{ project.title }}
-            </h3>
-            <p class="text-neutral-400 text-lg leading-relaxed line-clamp-2">
-              {{ project.description }}
-            </p>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Modal (Dialog) refactorizado para el modo oscuro absoluto -->
+    <!-- Modal (Dialog) de PrimeVue -->
     <Dialog 
       v-model:visible="isDialogVisible" 
       modal 
@@ -70,14 +100,12 @@
       }"
     >
       <div v-if="selectedProject" class="flex flex-col lg:flex-row min-h-[60vh]">
-        
         <div class="lg:w-2/3 bg-neutral-950 flex flex-col border-r border-neutral-800">
           <div class="flex-1 relative aspect-video lg:aspect-auto flex items-center justify-center">
             <span class="text-neutral-600 font-medium text-xl">
               {{ selectedProject.images[activeImageIndex] }}
             </span>
           </div>
-          
           <div class="flex gap-4 p-6 bg-neutral-900 border-t border-neutral-800 overflow-x-auto">
             <button
               v-for="(img, index) in selectedProject.images"
@@ -95,9 +123,8 @@
 
         <div class="lg:w-1/3 p-10 flex flex-col bg-neutral-900">
           <div v-if="selectedProject.clientName" class="mb-8">
-            
             <div class="inline-block bg-neutral-800 text-neutral-300 text-sm font-bold px-5 py-2.5 rounded-xl uppercase tracking-wide">
-              {{ selectedProject.clientName }}
+              Cliente: {{ selectedProject.clientName }}
             </div>
           </div>
           
@@ -118,24 +145,68 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { ProjectCategory, type Project } from '~/types/index';
 import { portfolioProjects } from '~/data/projects';
 
+// Interfaz para tipar los detalles de la categoria
+interface CategoryInfo {
+  title: string;
+  description: string;
+}
+
+// Tipo union para las opciones de filtrado
 type FilterOption = ProjectCategory | 'all';
 
-const activeCategory = ref<FilterOption>('all');
+// Interfaz estricta para los items del menu de filtros
+interface FilterCategoryItem {
+  label: string;
+  value: FilterOption;
+}
+
+const route = useRoute();
+const router = useRouter();
+
+const activeCategory = ref<FilterOption>((route.query.category as FilterOption) || 'all');
 const isDialogVisible = ref<boolean>(false);
 const selectedProject = ref<Project | null>(null);
 const activeImageIndex = ref<number>(0);
 
-const filterCategories: { label: string; value: FilterOption }[] = [
+// Array tipado estrictamente con la interfaz FilterCategoryItem
+const filterCategories: FilterCategoryItem[] = [
   { label: 'Todos', value: 'all' },
   { label: 'Muebles a Medida', value: ProjectCategory.CUSTOM_FURNITURE },
   { label: 'Locales Comerciales', value: ProjectCategory.COMMERCIAL },
   { label: 'Restauración', value: ProjectCategory.RESTORATION },
   { label: 'Proyectos Especiales', value: ProjectCategory.SPECIAL_PROJECTS }
 ];
+
+const categoryDetails: Record<string, CategoryInfo> = {
+  [ProjectCategory.CUSTOM_FURNITURE]: {
+    title: 'Muebles a Medida',
+    description: 'Diseñamos y construimos mobiliario exclusivo que se adapta milimétricamente a su espacio. Seleccionamos las maderas según las necesidades estructurales y estéticas de cada encargo, garantizando piezas únicas que combinan funcionalidad y ebanistería tradicional.'
+  },
+  [ProjectCategory.COMMERCIAL]: {
+    title: 'Locales Comerciales',
+    description: 'Trasladamos la identidad de su marca a la madera. Desarrollamos mostradores, estanterías y revestimientos para tiendas, restaurantes y hoteles, cumpliendo con los estándares de durabilidad y normativas exigidas para el alto tránsito.'
+  },
+  [ProjectCategory.RESTORATION]: {
+    title: 'Restauración y Conservación',
+    description: 'Devolvemos la vida a muebles antiguos y estructuras de época. Nuestro proceso de restauración respeta las técnicas y acabados originales, consolidando la madera, tratando patologías y recuperando el esplendor histórico de cada pieza.'
+  },
+  [ProjectCategory.SPECIAL_PROJECTS]: {
+    title: 'Proyectos Especiales',
+    description: 'Soluciones estructurales y artísticas que desafían los estándares convencionales. Desde artesonados y escaleras de diseño hasta integraciones complejas de madera con metal o cristal para obras arquitectónicas singulares.'
+  }
+};
+
+// Propiedad computada para gestionar de forma segura los detalles de la categoria activa.
+// Esto elimina el error de "Object is possibly 'undefined'" en la plantilla.
+const activeCategoryDetails = computed<CategoryInfo | null>(() => {
+  if (activeCategory.value === 'all') return null;
+  return categoryDetails[activeCategory.value] || null;
+});
 
 const filteredProjects = computed<Project[]>(() => {
   if (activeCategory.value === 'all') {
@@ -144,7 +215,29 @@ const filteredProjects = computed<Project[]>(() => {
   return portfolioProjects.filter(project => project.category === activeCategory.value);
 });
 
-// Metodo para inicializar la vista del modal
+// Metodo que sincroniza la URL con el estado local y actualiza los proyectos
+const setCategory = (category: FilterOption): void => {
+  activeCategory.value = category;
+  
+  router.push({
+    path: '/',
+    query: { category: category === 'all' ? undefined : category },
+    hash: '#portfolio'
+  });
+};
+
+watch(
+  () => route.query.category,
+  (newCategory) => {
+    if (newCategory) {
+      activeCategory.value = newCategory as FilterOption;
+    } else {
+      activeCategory.value = 'all';
+    }
+  }
+);
+
+// Metodo para abrir el detalle del proyecto
 const openProjectDetails = (project: Project): void => {
   selectedProject.value = project;
   activeImageIndex.value = 0; 

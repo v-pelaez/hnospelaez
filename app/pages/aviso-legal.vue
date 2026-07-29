@@ -23,9 +23,9 @@
           En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSICE), los datos identificativos de la empresa son los siguientes:
         </p>
         <ul class="list-disc pl-6 space-y-2 text-neutral-400">
-          <li><strong class="text-neutral-200">Denominación social:</strong> Hnos. Peláez S.L. [Reemplazar]</li>
-          <li><strong class="text-neutral-200">CIF/NIF:</strong> B-XXXXXXXX [Reemplazar]</li>
-          <li><strong class="text-neutral-200">Domicilio social:</strong> Calle del Artesano 12, Madrid [Reemplazar]</li>
+          <li><strong class="text-neutral-200">Denominación social:</strong> Carpinteria Artesanal Hermanos Peláez S.L.</li>
+          <li><strong class="text-neutral-200">CIF:</strong> B-56296627</li>
+          <li><strong class="text-neutral-200">Domicilio social:</strong> Calle Juan de la Plaza 1, 3º B, 21007 Huelva</li>
           <li><strong class="text-neutral-200">Correo electrónico:</strong> carpinteriahermanospelaez@gmail.com</li>
         </ul>
       </section>
