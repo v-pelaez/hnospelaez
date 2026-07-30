@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: "2026-07-29",
 
-  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag"],
+  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
 
   primevue: {
     options: {
