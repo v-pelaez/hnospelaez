@@ -35,9 +35,9 @@
       </p>
 
       <div class="flex flex-col sm:flex-row justify-center gap-6">
-        <a href="#portfolio" class=" bg-white text-neutral-950 font-bold px-10 py-4 rounded-full text-xl hover:bg-neutral-200 transition-colors shadow-lg">
+        <!-- <a href="#portfolio" class=" bg-white text-neutral-950 font-bold px-10 py-4 rounded-full text-xl hover:bg-neutral-200 transition-colors shadow-lg">
           Ver trabajos
-        </a>
+        </a> -->
         <a href="#contact" class=" bg-[#F3A328] text-neutral-950 font-bold px-10 py-4 rounded-full text-xl hover:bg-[#FFBD17] transition-colors shadow-lg">
           Hablar con el taller
         </a>
