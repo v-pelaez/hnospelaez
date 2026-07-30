@@ -20,6 +20,8 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "@types/node": "^26.1.2",
+    "nuxt-gtag": "^4.1.0",
     "typescript": "^7.0.2",
     "vue-tsc": "^3.3.8"
   }

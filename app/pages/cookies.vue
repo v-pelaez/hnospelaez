@@ -41,4 +41,50 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
+
+// Extraemos la funcion gtag para enviar comandos directamente a Google Analytics
+const { gtag } = useGtag();
+
+const COOKIE_CONSENT_KEY: string = 'hnos_pelaez_cookie_consent';
+const isBannerVisible = ref<boolean>(false);
+
+const checkConsent = (): void => {
+  const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+  
+  if (!consent) {
+    isBannerVisible.value = true;
+  } else if (consent === 'accepted') {
+    // Si ya aceptó previamente, actualizamos el estado en cada carga de página
+    updateConsentToGranted();
+  }
+};
+
+// Función para comunicar la aceptación a Google Analytics (Consent Mode v2)
+const updateConsentToGranted = (): void => {
+  gtag('consent', 'update', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted'
+  });
+};
+
+const acceptCookies = (): void => {
+  localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
+  isBannerVisible.value = false;
+  
+  // Cambiamos los permisos en tiempo real al hacer clic
+  updateConsentToGranted();
+};
+
+const rejectCookies = (): void => {
+  localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
+  isBannerVisible.value = false;
+  // No necesitamos hacer nada extra con gtag() porque el estado por defecto ya es 'denied'
+};
+
+onMounted(() => {
+  checkConsent();
+});
 </script>

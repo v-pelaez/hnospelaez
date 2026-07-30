@@ -85,7 +85,7 @@
         </button>
 
         <nav class="flex flex-col gap-8 text-2xl font-medium text-neutral-300 mt-4">
-          <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink>
+          <!-- <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink> -->
           <NuxtLink to="/#about" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">El Taller</NuxtLink>
           <NuxtLink to="/#clients" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Clientes</NuxtLink>
           <NuxtLink to="/#contact" @click="closeMobileMenu" class="hover:text-white transition-colors pb-4">Contacto</NuxtLink>

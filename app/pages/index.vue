@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeroSection />
-    <PortfolioSection />
+    <!-- <PortfolioSection /> -->
     <AboutSection />
     <ClientsSection />
     <ContactSection />

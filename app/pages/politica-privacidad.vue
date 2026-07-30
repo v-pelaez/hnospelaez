@@ -18,7 +18,7 @@
       <section>
         <h2 class="text-2xl font-bold text-white mb-4">1. Responsable del Tratamiento</h2>
         <p>
-          El responsable del tratamiento de los datos personales recogidos a través de este sitio web es Hnos. Peláez, con domicilio en Calle del Artesano 12, Madrid, y correo electrónico de contacto: carpinteriahermanospelaez@gmail.com.
+          El responsable del tratamiento de los datos personales recogidos a través de este sitio web es Hnos. Peláez, con domicilio en Calle Juan de la Plz., Huelva, y correo electrónico de contacto: carpinteriahermanospelaez@gmail.com.
         </p>
       </section>
 
