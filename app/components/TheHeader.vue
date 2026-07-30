@@ -39,7 +39,7 @@
             <NuxtLink to="/?category=restoration#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Restauración</NuxtLink>
             <NuxtLink to="/?category=special_projects#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Proyectos Especiales</NuxtLink>
           </div>
-        </div> -->
+        </div>
 
         <NuxtLink to="/#about" class="hover:text-white transition-colors">El Taller</NuxtLink>
         <NuxtLink to="/#clients" class="hover:text-white transition-colors">Clientes</NuxtLink>
