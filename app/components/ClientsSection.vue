@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { trustedClients } from '~/data/clients'; //[cite: 4]
+import { trustedClients } from '~/data/clients'; 
 
 // Extraemos la configuracion del entorno para leer el baseURL actual
 const config = useRuntimeConfig();
@@ -59,7 +59,6 @@ const getAssetPath = (path: string): string => {
 </script>
 
 <style scoped>
-/*[cite: 4] */
 .mask-edges {
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
