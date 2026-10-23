@@ -1,2 +1,4 @@
-User-Agent: *
-Disallow:
+User-agent: *
+Allow: /
+
+Sitemap: https://hermanospelaez.com/sitemap.xml

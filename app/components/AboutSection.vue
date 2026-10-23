@@ -28,7 +28,7 @@
   <!-- Tarjeta con imagen del fundador y overlay de texto -->
   <div class="relative group overflow-hidden rounded-sm shadow-lg border border-neutral-800">
     <img 
-      src="/images/alfonsoPelaez.jpg" 
+      src="/images/alfonsoPelaez.webp" 
       alt="Alfonso Peláez, fundador de la ebanistería" 
       class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105" 
     />
@@ -48,12 +48,12 @@
           <!-- Segunda columna: Imagenes del taller actual para equilibrar -->
           <div class="space-y-4">
             <img 
-              src="/images/taller-3.jpg" 
+              src="/images/taller-3.webp" 
               alt="Maderas nobles en el taller" 
               class="w-full h-48 object-cover rounded-sm shadow-lg border border-neutral-800" 
             />
             <img 
-              src="/images/taller-4.jpg" 
+              src="/images/taller-4.webp" 
               alt="Ensamblaje final a medida" 
               class="w-full h-64 object-cover rounded-sm shadow-lg border border-neutral-800" 
             />
