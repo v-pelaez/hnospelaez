@@ -10,7 +10,7 @@
 
       <!-- Navegacion de Escritorio -->
       <nav class="hidden md:flex gap-10 text-lg font-medium text-neutral-400 items-center h-full">
-        <!-- <div 
+         <!-- <div 
           class="relative group h-full flex items-center" 
           @mouseenter="isDropdownOpen = true" 
           @mouseleave="isDropdownOpen = false"

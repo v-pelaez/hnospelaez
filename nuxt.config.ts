@@ -1,7 +1,10 @@
 // Configuración base de Nuxt para generar el sitio estático (SSG)
 export default defineNuxtConfig({
 
-  
+  // // Ajuste temporal para ver la web en la URL de GitHub
+  // app: {
+  //   baseURL: '/hnospelaez/' // IMPORTANTE
+  // },
 
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: "2026-07-29",
@@ -40,7 +43,7 @@ export default defineNuxtConfig({
       ],
     ],
   },
-  nitro: { preset: "github-pages" },
+  // nitro: { preset: "github-pages" },
 
   devtools: { enabled: false },
 });
