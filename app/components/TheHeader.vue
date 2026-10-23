@@ -10,7 +10,7 @@
 
       <!-- Navegacion de Escritorio -->
       <nav class="hidden md:flex gap-10 text-lg font-medium text-neutral-400 items-center h-full">
-         <div 
+         <!-- <div 
           class="relative group h-full flex items-center" 
           @mouseenter="isDropdownOpen = true" 
           @mouseleave="isDropdownOpen = false"
@@ -39,7 +39,7 @@
             <NuxtLink to="/?category=restoration#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Restauración</NuxtLink>
             <NuxtLink to="/?category=special_projects#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Proyectos Especiales</NuxtLink>
           </div>
-        </div>
+        </div> -->
 
         <NuxtLink to="/#about" class="hover:text-white transition-colors">El Taller</NuxtLink>
         <NuxtLink to="/#clients" class="hover:text-white transition-colors">Clientes</NuxtLink>
@@ -85,7 +85,7 @@
         </button>
 
         <nav class="flex flex-col gap-8 text-2xl font-medium text-neutral-300 mt-4">
-          <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink>
+          <!-- <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink> -->
           <NuxtLink to="/#about" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">El Taller</NuxtLink>
           <NuxtLink to="/#clients" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Clientes</NuxtLink>
           <NuxtLink to="/#contact" @click="closeMobileMenu" class="hover:text-white transition-colors pb-4">Contacto</NuxtLink>
