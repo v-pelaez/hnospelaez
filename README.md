@@ -1,75 +1,27 @@
-# Nuxt Minimal Starter
+<div align="center">
+  <!-- Reemplaza la URL de abajo con la ruta real de tu imagen (ej. ./public/preview.png) -->
+  <img src="URL_DE_TU_IMAGEN_AQUI" alt="Hermanos Peláez - Web Preview" width="100%">
+  <br><br>
+  <h1>Hermanos Peláez - Corporate Website 🏢</h1>
+  <p><b><a href="https://hermanospelaez.com">🌐 View Live Project</a></b></p>
+</div>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## 📖 Overview
 
-## Setup
+A modern, high-performance corporate web application designed to establish a strong digital presence. The architecture prioritizes ultra-fast loading times, automated technical SEO, and strict adherence to European data protection regulations (GDPR).
 
-Make sure to install dependencies:
+## 🚀 Technical Stack
 
-```bash
-# npm
-npm install
+- **Framework:** Nuxt 3 (SSG) / Vue.js
+- **Language:** TypeScript (Strict Mode)
+- **Styling:** Tailwind CSS
+- **UI Library:** PrimeVue
+- **Analytics:** Google Analytics 4
+- **Infrastructure:** Cloudflare Pages (Automated CI/CD)
 
-# pnpm
-pnpm install
+## ✨ Technical Highlights
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- **🔒 Privacy-First Analytics:** Engineered a custom integration with GA4 using Consent Mode v2. It ensures strict cookie blocking by default while leveraging cookieless pings for unconsented traffic to maintain accurate behavioral modeling.
+- **🔎 Automated SEO:** Implemented dynamic XML sitemap generation and strict search engine directives (`robots.txt`) directly within the build process.
+- **🛡️ Type Safety:** Enforced robust data typing and strict interfaces across the application using TypeScript, eliminating runtime errors and ensuring high maintainability.
+- **⚡ Server-Side Generation:** Deployed using Nuxt's SSG capabilities to serve highly optimized static assets globally via Cloudflare's edge network.
