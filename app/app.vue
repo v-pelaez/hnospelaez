@@ -26,9 +26,9 @@ const businessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Hnos. Peláez Carpinteria Artesanal",
-  image: "https://www.hermanospelaez.com/images/hero-bg.webp",
-  "@id": "https://www.hermanospelaez.com",
-  url: "https://www.hermanospelaez.com",
+  image: "https://hermanospelaez.com/images/hero-bg.webp",
+  "@id": "https://hermanospelaez.com",
+  url: "https://hermanospelaez.com",
   telephone: "+34635518659",
   address: {
     "@type": "PostalAddress",

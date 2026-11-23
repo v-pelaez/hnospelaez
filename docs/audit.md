@@ -67,3 +67,12 @@ Severidad: **Alta** (riesgo legal, de producción o gran impacto), **Media**, **
 | P5 | Sin cabeceras de seguridad (HSTS, CSP, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`) en producción; Lighthouse: "No CSP found in enforcement mode". | Buenas prácticas 82/81; superficie para clickjacking/XSS. | Media | Definirlas en `public/_headers` (CSP compatible con gtag). | |
 | P6 | Script de Cloudflare `/cdn-cgi/challenge-platform/.../main.js` activo en producción, que genera avisos de APIs obsoletas (`deprecations`: FencedFrame, `StorageType.persistent`) en Lighthouse. | Resta puntos de Buenas prácticas; ajeno al código del repo. | Baja | Decidir si se desactiva Bot Fight / JS detections en Cloudflare. | |
 | P7 | `NUXT_PUBLIC_GTAG_ID` solo se inyecta en el workflow de Pages (secreto de GitHub); en Cloudflare debe estar en variables de build, y no hay `.env.example` (el `.gitignore` ya lo contempla). | Riesgo de desplegar sin analítica sin darse cuenta. | Media | Documentar la variable y añadir `.env.example`. | |
+
+## Cabeceras, caché y dominio canónico
+
+- Dominio canónico: apex `https://hermanospelaez.com` (robots.txt, sitemap vía `site.url` en `nuxt.config.ts` y JSON-LD en `app/app.vue`).
+- `public/_headers` (copiado a `.output/public`) define CSP, HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, caché inmutable para `/_nuxt/*` y revalidación para HTML.
+- La CSP usa `'unsafe-inline'` en scripts/estilos porque el SSG de Nuxt inyecta scripts inline sin nonce; permite solo los hosts de Google Tag Manager/Analytics que necesita gtag.
+- Verificación tras desplegar: `curl -sI https://hermanospelaez.com/ | grep -iE "content-security|strict-transport|nosniff|referrer|permissions|cache-control"` y `curl -sI https://hermanospelaez.com/_nuxt/<fichero>.js`; o securityheaders.com.
+
+**Needs owner:** crear en Cloudflare (dominio `hermanospelaez.com` → Rules → Redirect Rules) la regla `www.hermanospelaez.com/*` → `https://hermanospelaez.com/${1}`, 301, conservando query string; el registro DNS `www` debe estar proxied (naranja).
