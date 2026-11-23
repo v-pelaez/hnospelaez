@@ -68,6 +68,7 @@ The site is deployed on **Cloudflare Workers with static assets**, using Cloudfl
 - Push to any other branch → Cloudflare builds a preview deployment.
 - Build output directory: `.output/public`.
 - Optional local validation (no login needed): `npm run generate && npx wrangler deploy --dry-run`.
+- Observability: `observability` is intentionally not enabled in `wrangler.jsonc`. This is a static-assets-only Worker with no code, so asset requests do not invoke the Worker and Workers Logs/traces would capture nothing useful. Use Workers Metrics in the dashboard and Cloudflare Web Analytics instead (see D4 in [`docs/audit.md`](./docs/audit.md)).
 
 **Needs owner:** confirm in the Cloudflare dashboard (Workers & Pages → `hnospelaez` → Settings → Build) that the build command is `npm run generate` and the output directory is `.output/public`, and that hermanospelaez.com keeps being served after this change.
 
