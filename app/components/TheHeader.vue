@@ -1,8 +1,9 @@
 <template>
   <!-- Cabecera principal -->
-  <header class="fixed w-full top-0 z-40 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900 transition-all duration-300">
+  <header
+    class="fixed w-full top-0 z-40 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-900 transition-all duration-300"
+  >
     <div class="container mx-auto px-4 h-24 flex items-center justify-between">
-      
       <!-- Enlace al inicio y logo -->
       <NuxtLink to="/" class="relative z-50 flex items-center">
         <img src="/images/logohorizontal.svg" alt="Hnos. Peláez Logo" class="h-12 w-auto" />
@@ -10,7 +11,7 @@
 
       <!-- Navegacion de Escritorio -->
       <nav class="hidden md:flex gap-10 text-lg font-medium text-neutral-400 items-center h-full">
-         <!-- <div 
+        <!-- <div 
           class="relative group h-full flex items-center" 
           @mouseenter="isDropdownOpen = true" 
           @mouseleave="isDropdownOpen = false"
@@ -47,13 +48,24 @@
       </nav>
 
       <!-- Boton hamburguesa para Movil (Solo se muestra cuando esta cerrado) -->
-      <button 
-        @click="openMobileMenu" 
+      <button
         class="md:hidden text-neutral-300 hover:text-white p-2 relative z-50 focus:outline-none transition-colors"
         aria-label="Abrir Menu"
+        @click="openMobileMenu"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
     </div>
@@ -69,26 +81,52 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div 
-        v-if="isMobileMenuOpen" 
+      <div
+        v-if="isMobileMenuOpen"
         class="fixed inset-0 bg-neutral-950/95 backdrop-blur-xl z-50 md:hidden flex flex-col pt-32 px-8"
       >
         <!-- Boton de cierre de la navegacion movil -->
-        <button 
-          @click="closeMobileMenu" 
+        <button
           class="absolute top-8 right-6 text-neutral-300 hover:text-white p-2 focus:outline-none transition-colors"
           aria-label="Cerrar Menu"
+          @click="closeMobileMenu"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
         <nav class="flex flex-col gap-8 text-2xl font-medium text-neutral-300 mt-4">
           <!-- <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink> -->
-          <NuxtLink to="/#about" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">El Taller</NuxtLink>
-          <NuxtLink to="/#clients" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Clientes</NuxtLink>
-          <NuxtLink to="/#contact" @click="closeMobileMenu" class="hover:text-white transition-colors pb-4">Contacto</NuxtLink>
+          <NuxtLink
+            to="/#about"
+            class="hover:text-white transition-colors border-b border-neutral-800 pb-4"
+            @click="closeMobileMenu"
+            >El Taller</NuxtLink
+          >
+          <NuxtLink
+            to="/#clients"
+            class="hover:text-white transition-colors border-b border-neutral-800 pb-4"
+            @click="closeMobileMenu"
+            >Clientes</NuxtLink
+          >
+          <NuxtLink
+            to="/#contact"
+            class="hover:text-white transition-colors pb-4"
+            @click="closeMobileMenu"
+            >Contacto</NuxtLink
+          >
         </nav>
       </div>
     </Transition>
@@ -96,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 // Estado de visualizacion para los menus
 const isDropdownOpen = ref<boolean>(false);
@@ -105,12 +143,12 @@ const isMobileMenuOpen = ref<boolean>(false);
 // Abre el menu movil y bloquea el desplazamiento vertical del documento
 const openMobileMenu = (): void => {
   isMobileMenuOpen.value = true;
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = "hidden";
 };
 
 // Cierra el menu movil y restaura el comportamiento normal del scroll
 const closeMobileMenu = (): void => {
   isMobileMenuOpen.value = false;
-  document.body.style.overflow = '';
+  document.body.style.overflow = "";
 };
 </script>

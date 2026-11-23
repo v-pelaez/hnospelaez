@@ -47,6 +47,9 @@ NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 | :--- | :--- |
 | `npm run dev` | Start the local development server |
 | `npm run typecheck` | Run TypeScript type checking (`nuxi typecheck`) |
+| `npm run lint` | Run ESLint |
+| `npm run format:check` | Check Prettier formatting (`npm run format` to fix) |
+| `npm run check` | Run lint, format check and typecheck |
 | `npm run generate` | Generate the static site for production |
 | `npm run build` | Build the application for production |
 | `npm run preview` | Preview the production build locally |
