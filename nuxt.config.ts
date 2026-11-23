@@ -1,15 +1,10 @@
 // Configuración base de Nuxt para generar el sitio estático (SSG)
 export default defineNuxtConfig({
 
-  // // Ajuste temporal para ver la web en la URL de GitHub
-  // app: {
-  //   baseURL: '/hnospelaez/' // IMPORTANTE
-  // },
-
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: "2026-07-29",
 
-  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
+  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap"],
 
   // Dominio canónico (apex); lo usa @nuxtjs/sitemap
   site: {
@@ -56,7 +51,5 @@ export default defineNuxtConfig({
       ],
     ],
   },
-  // nitro: { preset: "github-pages" },
-
   devtools: { enabled: false },
 });

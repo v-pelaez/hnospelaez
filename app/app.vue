@@ -89,7 +89,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Kill-switch PrimeUI */
+/*
+  Kill-switch PrimeUI: el módulo de PrimeUI inyecta un host (#p-license-host, z-index máximo)
+  con un aviso rojo "Invalid PrimeUI License" que tapa el botón "Aceptar" del banner de cookies.
+  Comprobado con generate + servidor local + Edge headless: sin esta regla el aviso aparece.
+  Se mantiene hasta retirar @primevue/nuxt-module (no se usa ningún componente; ver audit.md C6).
+*/
 div[style*="z-index: 99999"],
 div[style*="z-index: 2147483647"] {
   display: none !important;

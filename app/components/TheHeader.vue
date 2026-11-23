@@ -20,37 +20,6 @@
 
       <!-- Navegacion de Escritorio -->
       <nav class="hidden md:flex gap-10 text-lg font-medium text-neutral-400 items-center h-full">
-        <!-- <div 
-          class="relative group h-full flex items-center" 
-          @mouseenter="isDropdownOpen = true" 
-          @mouseleave="isDropdownOpen = false"
-        >
-          <NuxtLink to="/#portfolio" class="hover:text-white transition-colors flex items-center gap-1 cursor-pointer">
-            Trabajos
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              class="h-5 w-5 transition-transform duration-300" 
-              :class="{ 'rotate-180': isDropdownOpen }" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </NuxtLink>
-
-          <div
-            v-show="isDropdownOpen"
-            class="absolute top-full left-0 w-64 bg-neutral-950 border border-t-0 border-neutral-900 rounded-b-md shadow-2xl overflow-hidden transition-opacity duration-300"
-          >
-            <NuxtLink to="/?category=all#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Todos los trabajos</NuxtLink>
-            <NuxtLink to="/?category=custom_furniture#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Muebles a Medida</NuxtLink>
-            <NuxtLink to="/?category=commercial#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Locales Comerciales</NuxtLink>
-            <NuxtLink to="/?category=restoration#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Restauración</NuxtLink>
-            <NuxtLink to="/?category=special_projects#portfolio" class="block px-6 py-4 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors">Proyectos Especiales</NuxtLink>
-          </div>
-        </div> -->
-
         <NuxtLink to="/#about" class="hover:text-white transition-colors">El Taller</NuxtLink>
         <NuxtLink to="/#clients" class="hover:text-white transition-colors">Clientes</NuxtLink>
         <NuxtLink to="/#contact" class="hover:text-white transition-colors">Contacto</NuxtLink>
@@ -125,7 +94,6 @@
         </button>
 
         <nav class="flex flex-col gap-8 text-2xl font-medium text-neutral-300 mt-4">
-          <!-- <NuxtLink to="/#portfolio" @click="closeMobileMenu" class="hover:text-white transition-colors border-b border-neutral-800 pb-4">Trabajos</NuxtLink> -->
           <NuxtLink
             to="/#about"
             class="hover:text-white transition-colors border-b border-neutral-800 pb-4"
@@ -153,8 +121,7 @@
 <script setup lang="ts">
 import { nextTick, ref } from "vue";
 
-// Estado de visualizacion para los menus
-const isDropdownOpen = ref<boolean>(false);
+// Estado de visualizacion para el menu
 const isMobileMenuOpen = ref<boolean>(false);
 const openButton = ref<HTMLButtonElement | null>(null);
 const closeButton = ref<HTMLButtonElement | null>(null);
