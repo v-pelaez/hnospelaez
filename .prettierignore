@@ -11,3 +11,6 @@ nuxt.config.ts
 nuxt.d.ts
 tailwind.config.js
 tsconfig.json
+
+# Wrangler config: Prettier would add trailing commas to JSONC
+wrangler.jsonc
