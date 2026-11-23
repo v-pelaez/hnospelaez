@@ -60,6 +60,8 @@ NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 
 ## Deployment
 
+**CI:** [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs `npm run check` and `npm run generate` (Node 22) on every pull request and on pushes to `main` and `dev`. It is only a quality gate and never deploys; deployment is handled by Cloudflare's Git integration.
+
 The site is deployed on **Cloudflare Workers with static assets**, using Cloudflare's Git integration (Worker/project `hnospelaez`, custom domain `hermanospelaez.com`). The configuration is versioned in [`wrangler.jsonc`](./wrangler.jsonc).
 
 - Push to `main` → Cloudflare builds (`npm run generate`) and publishes to production.
