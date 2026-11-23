@@ -5,8 +5,17 @@
   >
     <div class="container mx-auto px-4 h-24 flex items-center justify-between">
       <!-- Enlace al inicio y logo -->
-      <NuxtLink to="/" class="relative z-50 flex items-center">
-        <img src="/images/logohorizontal.svg" alt="Hnos. Peláez Logo" class="h-12 w-auto" />
+      <NuxtLink
+        to="/"
+        class="relative z-50 flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F3A328] focus-visible:outline-offset-4"
+      >
+        <img
+          src="/images/logohorizontal.svg"
+          alt="Hnos. Peláez Logo"
+          width="656"
+          height="156"
+          class="h-12 w-auto"
+        />
       </NuxtLink>
 
       <!-- Navegacion de Escritorio -->
@@ -49,8 +58,11 @@
 
       <!-- Boton hamburguesa para Movil (Solo se muestra cuando esta cerrado) -->
       <button
-        class="md:hidden text-neutral-300 hover:text-white p-2 relative z-50 focus:outline-none transition-colors"
+        class="md:hidden text-neutral-300 hover:text-white p-2 relative z-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F3A328] transition-colors"
+        ref="openButton"
         aria-label="Abrir Menu"
+        aria-haspopup="dialog"
+        :aria-expanded="isMobileMenuOpen"
         @click="openMobileMenu"
       >
         <svg
@@ -83,11 +95,16 @@
     >
       <div
         v-if="isMobileMenuOpen"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú de navegación"
         class="fixed inset-0 bg-neutral-950/95 backdrop-blur-xl z-50 md:hidden flex flex-col pt-32 px-8"
+        @keydown.esc="closeMobileMenu"
       >
         <!-- Boton de cierre de la navegacion movil -->
         <button
-          class="absolute top-8 right-6 text-neutral-300 hover:text-white p-2 focus:outline-none transition-colors"
+          ref="closeButton"
+          class="absolute top-8 right-6 text-neutral-300 hover:text-white p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F3A328] transition-colors"
           aria-label="Cerrar Menu"
           @click="closeMobileMenu"
         >
@@ -134,21 +151,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 
 // Estado de visualizacion para los menus
 const isDropdownOpen = ref<boolean>(false);
 const isMobileMenuOpen = ref<boolean>(false);
+const openButton = ref<HTMLButtonElement | null>(null);
+const closeButton = ref<HTMLButtonElement | null>(null);
 
 // Abre el menu movil y bloquea el desplazamiento vertical del documento
 const openMobileMenu = (): void => {
   isMobileMenuOpen.value = true;
   document.body.style.overflow = "hidden";
+  // Lleva el foco al boton de cierre para que el teclado opere dentro del menu
+  void nextTick(() => closeButton.value?.focus());
 };
 
 // Cierra el menu movil y restaura el comportamiento normal del scroll
 const closeMobileMenu = (): void => {
   isMobileMenuOpen.value = false;
   document.body.style.overflow = "";
+  // Devuelve el foco al boton que abrio el menu
+  void nextTick(() => openButton.value?.focus());
 };
 </script>

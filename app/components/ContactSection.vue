@@ -34,7 +34,7 @@
               </svg>
             </div>
             <div>
-              <p class="text-sm text-neutral-500 font-medium mb-1">Teléfono</p>
+              <p class="text-sm text-neutral-400 font-medium mb-1">Teléfono</p>
               <p class="text-xl text-white font-medium tracking-wide">{{ formattedPhone }}</p>
             </div>
           </div>
@@ -63,7 +63,7 @@
 
             <!-- Aplico min-w-0 para que el flexbox respete el truncate -->
             <div class="flex-1 min-w-0">
-              <p class="text-sm text-neutral-500 font-medium mb-1">Email</p>
+              <p class="text-sm text-neutral-400 font-medium mb-1">Email</p>
               <p class="text-lg text-white font-medium truncate" :title="emailAddress">
                 {{ emailAddress }}
               </p>
@@ -137,7 +137,7 @@
               </svg>
             </div>
             <div>
-              <p class="text-sm text-neutral-500 font-medium mb-1">Horario de atención</p>
+              <p class="text-sm text-neutral-400 font-medium mb-1">Horario de atención</p>
               <p class="text-xl text-white font-medium">Lunes - Viernes</p>
               <p class="text-neutral-400 mt-1">08:00 - 18:00</p>
             </div>

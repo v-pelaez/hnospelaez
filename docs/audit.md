@@ -44,17 +44,17 @@ Severidad: **Alta** (riesgo legal, de producción o gran impacto), **Media**, **
 
 | ID | Problema | Impacto | Severidad | Decisión | Resultado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| R1 | El elemento LCP es `logo.svg` (26 KB, `h-72`) del hero, sin `fetchpriority`/preload; LCP móvil 19,0 s, escritorio 5,2 s. | Principal causa del 67/76 en Rendimiento. | Alta | Priorizar el logo (preload/`fetchpriority="high"`), reducir/optimizar el SVG; la imagen de fondo ya lleva `fetchpriority`, pero el logo no. | |
-| R2 | Imágenes sin `width`/`height` (logos de clientes, taller, fundador, hero, cabecera); `unsized-images` 0,5. Sin `loading="lazy"` en imágenes bajo el pliegue. Lighthouse estima 454 KiB de ahorro (tamaño inadecuado) y 60 KiB de offscreen. CLS actual 0. | Riesgo de CLS futuro y bytes innecesarios. | Media | Añadir dimensiones, `loading="lazy"`, `decoding="async"`; valorar `@nuxt/image` y variantes responsive (~1,2 MB de webp en `public/images`). | |
+| R1 | El elemento LCP es `logo.svg` (26 KB, `h-72`) del hero, sin `fetchpriority`/preload; LCP móvil 19,0 s, escritorio 5,2 s. | Principal causa del 67/76 en Rendimiento. | Alta | Priorizar el logo (preload/`fetchpriority="high"`), reducir/optimizar el SVG; la imagen de fondo ya lleva `fetchpriority`, pero el logo no. |  Resuelto: `fetchpriority="high"` en `logo.svg` (elemento LCP real del hero) con `width`/`height`; retirado `fetchpriority` de `hero-bg.webp` (tapado por el degradado, competía por ancho de banda con el logo). Medido en Edge headless, móvil 390 px con red limitada (200 KB/s, 150 ms): LCP 1,5 s sobre `logo.svg`. No medido con Lighthouse oficial (comparar con la línea base de 19 s tras desplegar). |
+| R2 | Imágenes sin `width`/`height` (logos de clientes, taller, fundador, hero, cabecera); `unsized-images` 0,5. Sin `loading="lazy"` en imágenes bajo el pliegue. Lighthouse estima 454 KiB de ahorro (tamaño inadecuado) y 60 KiB de offscreen. CLS actual 0. | Riesgo de CLS futuro y bytes innecesarios. | Media | Añadir dimensiones, `loading="lazy"`, `decoding="async"`; valorar `@nuxt/image` y variantes responsive (~1,2 MB de webp en `public/images`). |  Resuelto: `width`/`height` en todas las `<img>` (hero, cabecera, taller, fundador, logos de clientes; las dimensiones de los logos van en `app/data/clients.ts`), `loading="lazy"` + `decoding="async"` bajo el pliegue. Recomprimidos con sharp: `alfonsoPelaez`/`taller-3`/`taller-4` de 1920 a 960 px (172/48/86 KB a 41/34/20 KB), logos de clientes a 480 px máx. (`laloca` 49 a 14 KB, etc.). CLS medido 0 en móvil y escritorio, sin imágenes sin dimensiones. `taller-1`, `taller-2` y `Gepetto made me` no se usan en la web y no se han tocado. No se ha adoptado `@nuxt/image`. |
 | R3 | JS sin usar (~40 KiB) y recursos que bloquean el render (80-150 ms). | Menor. | Baja | Revisar PrimeVue (`unstyled`, sin componentes usados) y gtag. | |
 
 ## Accesibilidad
 
 | ID | Problema | Impacto | Severidad | Decisión | Resultado |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| A1 | Contraste insuficiente (4,17:1, `text-neutral-500` #737373 sobre #0a0a0a, p. ej. etiqueta "Teléfono" en Contacto). | Falla WCAG AA. | Media | Subir a `neutral-400`. | |
-| A2 | Imágenes de cliente con `alt` correcto pero el carrusel duplica los logos (el bucle 2 repite el `alt`). | Lectores de pantalla leen cada logo dos veces. | Baja | Marcar el segundo bucle `aria-hidden="true"` / `alt=""`. | |
-| A3 | Banner de cookies sin `role`/`aria-live` ni gestión de foco; el menú móvil/desplegable debe revisarse con teclado. | Navegación asistida mejorable. | Baja | Revisar con teclado y lector de pantalla. | Parcial: el banner lleva `role="dialog"` y `aria-label`; falta revisar foco/teclado. |
+| A1 | Contraste insuficiente (4,17:1, `text-neutral-500` #737373 sobre #0a0a0a, p. ej. etiqueta "Teléfono" en Contacto). | Falla WCAG AA. | Media | Subir a `neutral-400`. |  Resuelto: etiquetas "Teléfono", "Email" y "Horario de atención" a `text-neutral-400` (#a3a3a3 sobre #0a0a0a, aprox. 7,6:1). |
+| A2 | Imágenes de cliente con `alt` correcto pero el carrusel duplica los logos (el bucle 2 repite el `alt`). | Lectores de pantalla leen cada logo dos veces. | Baja | Marcar el segundo bucle `aria-hidden="true"` / `alt=""`. |  Resuelto: el bucle 2 del carrusel lleva `aria-hidden="true"` y `alt=""`. |
+| A3 | Banner de cookies sin `role`/`aria-live` ni gestión de foco; el menú móvil/desplegable debe revisarse con teclado. | Navegación asistida mejorable. | Baja | Revisar con teclado y lector de pantalla. | Parcial: el banner lleva `role="dialog"` y `aria-label`. Menú móvil: `role="dialog"`/`aria-modal`, `aria-expanded` en la hamburguesa, foco al botón de cierre al abrir, Escape cierra y devuelve el foco; indicador de foco visible (`focus-visible`, antes `focus:outline-none` sin alternativa). Probado con teclado en Edge headless. Sin atrapar el foco (focus trap) ni revisar el banner con lector de pantalla. |
 
 ## Seguridad y privacidad (RGPD)
 
@@ -87,3 +87,11 @@ Probado con `npm run generate` (`NUXT_PUBLIC_GTAG_ID=G-TEST000000`), servidor es
 - Aceptar: se carga `gtag/js?id=G-TEST000000` y se envía `collect`; persiste tras recargar.
 - "Configurar cookies" del pie reabre el banner. Retirar el consentimiento tras aceptar envía `consent update` con `analytics_storage: denied` (no verificado en red; la cookie `_ga` ya instalada no se borra hasta limpiar el navegador).
 - Requiere revisión del dueño/asesor legal: textos de banner, cookies y privacidad; si más adelante se usa publicidad habrá que declararla y conceder `ad_*`.
+
+## Verificación de imágenes y accesibilidad (RFP-11)
+
+Probado con `npm run generate`, servidor estático local y Edge headless (playwright-core, `channel: 'msedge'`), con axe-core 4.x (reglas wcag2a/2aa/21aa y best-practice) sobre la home:
+
+- Móvil (390 px): CLS 0; LCP `logo.svg`; axe sin violaciones. Un único `h1`; jerarquía h1, h2, h3 correcta en la home.
+- Escritorio (1350 px): CLS 0; LCP en el `h1`; axe solo `landmark-unique` (moderada: dos `nav` sin etiqueta distinta). Pendiente, no crítica.
+- No se ha ejecutado Lighthouse oficial; las cifras de LCP son con red emulada (CDP), no comparables 1:1 con la línea base.

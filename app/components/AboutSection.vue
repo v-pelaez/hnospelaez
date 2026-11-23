@@ -32,6 +32,10 @@
                 <img
                   src="/images/alfonsoPelaez.webp"
                   alt="Alfonso Peláez, fundador de la ebanistería"
+                  width="960"
+                  height="640"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
@@ -56,11 +60,19 @@
             <img
               src="/images/taller-3.webp"
               alt="Maderas nobles en el taller"
+              width="960"
+              height="640"
+              loading="lazy"
+              decoding="async"
               class="w-full h-48 object-cover rounded-sm shadow-lg border border-neutral-800"
             />
             <img
               src="/images/taller-4.webp"
               alt="Ensamblaje final a medida"
+              width="960"
+              height="640"
+              loading="lazy"
+              decoding="async"
               class="w-full h-64 object-cover rounded-sm shadow-lg border border-neutral-800"
             />
           </div>

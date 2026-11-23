@@ -17,20 +17,29 @@
             <img
               :src="getAssetPath(client.logoUrl)"
               :alt="client.name"
+              :width="client.width"
+              :height="client.height"
+              loading="lazy"
+              decoding="async"
               class="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity"
             />
           </div>
 
-          <!-- Bucle 2 -->
+          <!-- Bucle 2: duplicado visual del carrusel, oculto a lectores de pantalla -->
           <div
             v-for="client in trustedClients"
             :key="'second-' + client.id"
+            aria-hidden="true"
             class="w-56 flex-shrink-0 flex items-center justify-center p-8 border border-neutral-800 rounded-xl bg-neutral-900 aspect-[3/2] grayscale hover:grayscale-0 transition-all duration-300"
           >
             <!-- Añadimos la funcion getAssetPath al src -->
             <img
               :src="getAssetPath(client.logoUrl)"
-              :alt="client.name"
+              alt=""
+              :width="client.width"
+              :height="client.height"
+              loading="lazy"
+              decoding="async"
               class="max-w-full max-h-full object-contain opacity-70 hover:opacity-100 transition-opacity"
             />
           </div>
