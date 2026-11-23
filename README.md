@@ -25,7 +25,9 @@ This project migrated the company's web presence from **WordPress** to a **Stati
 
 ## Auditoría
 
-Estado inicial del repositorio y hallazgos priorizados: [`docs/audit.md`](./docs/audit.md). Mediciones Lighthouse previas: [`docs/lighthouse/before/`](./docs/lighthouse/before/README.md).
+Estado inicial del repositorio y hallazgos priorizados: [`docs/audit.md`](./docs/audit.md). Mediciones Lighthouse: [antes](./docs/lighthouse/before/README.md) (producción) y [después](./docs/lighthouse/after/README.md) (preview de la rama). Comparativa y estado final de cada hallazgo: [`docs/audit.md`](./docs/audit.md#comparativa-antesdespués).
+
+Resumen (móvil, Rendimiento / Accesibilidad / Buenas prácticas / SEO): 67 / 95 / 82 / 92 antes; 70 / 100 / 100 / 69 después (el SEO del preview baja solo por el `noindex` de `workers.dev`; remedir en producción). Hay hallazgos pendientes del dueño (redirección www, robots.txt gestionado por Cloudflare, ID de GA en las variables de build, textos legales).
 
 ## Local Development
 
@@ -39,7 +41,7 @@ npm install
 
 ### Environment Variables
 
-Optional `.env` file in the project root to enable Google Analytics locally:
+Optional `.env` file in the project root to enable Google Analytics locally. In production the same variable must be defined in Cloudflare's build variables, otherwise the site is deployed without analytics:
 
 ```env
 NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
