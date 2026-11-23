@@ -48,6 +48,13 @@
           a la dirección postal o electrónica arriba indicada.
         </p>
       </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">5. Cookies y analítica web</h2>
+        <p>
+          Con su consentimiento, utilizamos Google Analytics 4 (Google LLC, que puede tratar datos fuera del Espacio Económico Europeo) con fines exclusivamente estadísticos. Sin su consentimiento no se carga ninguna herramienta de analítica. No utilizamos publicidad personalizada. Puede aceptar, rechazar o cambiar su elección en cualquier momento desde el enlace "Configurar cookies" del pie de página. Más información en nuestra <NuxtLink to="/cookies" class="underline hover:text-white">Política de Cookies</NuxtLink>.
+        </p>
+      </section>
     </div>
   </div>
 </template>
