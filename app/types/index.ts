@@ -1,8 +1,8 @@
 export enum ProjectCategory {
-  CUSTOM_FURNITURE = 'custom_furniture',
-  COMMERCIAL = 'commercial',
-  RESTORATION = 'restoration',
-  SPECIAL_PROJECTS = 'special_projects'
+  CUSTOM_FURNITURE = "custom_furniture",
+  COMMERCIAL = "commercial",
+  RESTORATION = "restoration",
+  SPECIAL_PROJECTS = "special_projects",
 }
 
 export interface Project {

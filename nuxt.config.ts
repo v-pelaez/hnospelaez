@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: "2026-07-29",
 
-  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
+  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
 
   primevue: {
     options: {
@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     "/**": { prerender: true },
   },
 
+  // typeCheck se mantiene en false en dev para no bloquear Vite; el chequeo se hace con `npm run typecheck` (y `npm run check`)
   // Mantengo TypeScript estricto, pero delego el chequeo en tiempo real para evitar bloqueos del servidor Vite
   typescript: {
     strict: true,

@@ -1,0 +1,13 @@
+.nuxt
+.output
+dist
+node_modules
+package-lock.json
+public
+docs
+.github
+README.md
+nuxt.config.ts
+nuxt.d.ts
+tailwind.config.js
+tsconfig.json

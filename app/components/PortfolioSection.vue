@@ -10,13 +10,13 @@
         <button
           v-for="category in filterCategories"
           :key="category.value"
-          @click="setCategory(category.value)"
           :class="[
             'px-8 py-3 rounded-full transition-all duration-300 text-lg font-medium',
             activeCategory === category.value
               ? 'bg-white text-neutral-950 shadow-md'
-              : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white'
+              : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white',
           ]"
+          @click="setCategory(category.value)"
         >
           {{ category.label }}
         </button>
@@ -24,13 +24,12 @@
 
       <!-- Contenedor dinámico: Layout editorial -->
       <div class="flex flex-col lg:flex-row gap-12 items-start">
-        
         <!-- 
           Columna lateral de información. 
           Usamos sticky para que el texto acompañe al usuario mientras hace scroll por las fotos.
         -->
-        <div 
-          v-if="activeCategoryDetails" 
+        <div
+          v-if="activeCategoryDetails"
           class="lg:w-1/3 lg:sticky lg:top-36 transition-all duration-500"
         >
           <h3 class="text-4xl font-bold text-white mb-6 leading-tight">
@@ -47,24 +46,31 @@
           Si hay categoría activa, ocupa 2/3 del ancho (2 columnas). 
           Si está en "Todos", ocupa el ancho completo (3 columnas).
         -->
-        <div 
+        <div
           :class="[
             'w-full grid gap-8 transition-all duration-500',
-            activeCategory !== 'all' ? 'lg:w-2/3 grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            activeCategory !== 'all'
+              ? 'lg:w-2/3 grid-cols-1 md:grid-cols-2'
+              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
           ]"
         >
           <div
             v-for="project in filteredProjects"
             :key="project.id"
-            @click="openProjectDetails(project)"
             class="group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800 cursor-pointer transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-black/50"
+            @click="openProjectDetails(project)"
           >
             <div class="aspect-video bg-neutral-800 relative overflow-hidden">
-              <div v-if="project.clientName" class="absolute top-4 right-4 z-10 bg-black/80 text-white text-sm font-bold px-4 py-1.5 rounded-full backdrop-blur-sm">
+              <div
+                v-if="project.clientName"
+                class="absolute top-4 right-4 z-10 bg-black/80 text-white text-sm font-bold px-4 py-1.5 rounded-full backdrop-blur-sm"
+              >
                 {{ project.clientName }}
               </div>
               <!-- Simulación de imagen -->
-              <div class="absolute inset-0 flex items-center justify-center text-neutral-600 bg-neutral-800">
+              <div
+                class="absolute inset-0 flex items-center justify-center text-neutral-600 bg-neutral-800"
+              >
                 <span class="text-lg">{{ project.images[0] }}</span>
               </div>
             </div>
@@ -79,24 +85,32 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- Modal (Dialog) de PrimeVue -->
-    <Dialog 
-      v-model:visible="isDialogVisible" 
-      modal 
-      :header="selectedProject?.title" 
-      :style="{ width: '85vw', maxWidth: '1200px' }" 
+    <Dialog
+      v-model:visible="isDialogVisible"
+      modal
+      :header="selectedProject?.title"
+      :style="{ width: '85vw', maxWidth: '1200px' }"
       :breakpoints="{ '1199px': '90vw', '575px': '100vw' }"
-      dismissableMask
+      dismissable-mask
       :pt="{
         mask: { class: 'bg-black/90 backdrop-blur-md' },
-        root: { class: 'bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-neutral-800' },
-        header: { class: 'px-8 py-6 border-b border-neutral-800 flex justify-between items-center bg-neutral-900 z-10 text-2xl text-white font-bold' },
+        root: {
+          class:
+            'bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-neutral-800',
+        },
+        header: {
+          class:
+            'px-8 py-6 border-b border-neutral-800 flex justify-between items-center bg-neutral-900 z-10 text-2xl text-white font-bold',
+        },
         content: { class: 'p-0 overflow-y-auto bg-neutral-900 flex-1' },
-        closeButton: { class: 'text-neutral-400 hover:bg-neutral-800 hover:text-white p-3 rounded-full transition-colors focus:outline-none' }
+        closeButton: {
+          class:
+            'text-neutral-400 hover:bg-neutral-800 hover:text-white p-3 rounded-full transition-colors focus:outline-none',
+        },
       }"
     >
       <div v-if="selectedProject" class="flex flex-col lg:flex-row min-h-[60vh]">
@@ -110,11 +124,13 @@
             <button
               v-for="(img, index) in selectedProject.images"
               :key="index"
-              @click="activeImageIndex = index"
               :class="[
                 'w-28 h-24 flex-shrink-0 rounded-lg overflow-hidden flex items-center justify-center transition-all',
-                activeImageIndex === index ? 'ring-2 ring-white ring-offset-2 ring-offset-neutral-900 opacity-100' : 'opacity-40 hover:opacity-100 bg-neutral-800'
+                activeImageIndex === index
+                  ? 'ring-2 ring-white ring-offset-2 ring-offset-neutral-900 opacity-100'
+                  : 'opacity-40 hover:opacity-100 bg-neutral-800',
               ]"
+              @click="activeImageIndex = index"
             >
               <span class="text-sm text-neutral-500">Img {{ index + 1 }}</span>
             </button>
@@ -123,18 +139,23 @@
 
         <div class="lg:w-1/3 p-10 flex flex-col bg-neutral-900">
           <div v-if="selectedProject.clientName" class="mb-8">
-            <div class="inline-block bg-neutral-800 text-neutral-300 text-sm font-bold px-5 py-2.5 rounded-xl uppercase tracking-wide">
+            <div
+              class="inline-block bg-neutral-800 text-neutral-300 text-sm font-bold px-5 py-2.5 rounded-xl uppercase tracking-wide"
+            >
               Cliente: {{ selectedProject.clientName }}
             </div>
           </div>
-          
+
           <h3 class="text-3xl font-bold text-white mb-6">Detalles del Proyecto</h3>
           <p class="text-neutral-300 leading-relaxed flex-1 text-xl">
             {{ selectedProject.description }}
           </p>
-          
+
           <div class="mt-10 pt-8 border-t border-neutral-800">
-            <button @click="isDialogVisible = false" class="w-full bg-white text-neutral-900 font-bold py-5 rounded-xl hover:bg-neutral-200 transition-colors text-lg">
+            <button
+              class="w-full bg-white text-neutral-900 font-bold py-5 rounded-xl hover:bg-neutral-200 transition-colors text-lg"
+              @click="isDialogVisible = false"
+            >
               Cerrar detalles
             </button>
           </div>
@@ -145,10 +166,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { ProjectCategory, type Project } from '~/types/index';
-import { portfolioProjects } from '~/data/projects';
+import { ref, computed, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { ProjectCategory, type Project } from "~/types/index";
+import { portfolioProjects } from "~/data/projects";
 
 // Interfaz para tipar los detalles de la categoria
 interface CategoryInfo {
@@ -157,7 +178,7 @@ interface CategoryInfo {
 }
 
 // Tipo union para las opciones de filtrado
-type FilterOption = ProjectCategory | 'all';
+type FilterOption = ProjectCategory | "all";
 
 // Interfaz estricta para los items del menu de filtros
 interface FilterCategoryItem {
@@ -168,61 +189,65 @@ interface FilterCategoryItem {
 const route = useRoute();
 const router = useRouter();
 
-const activeCategory = ref<FilterOption>((route.query.category as FilterOption) || 'all');
+const activeCategory = ref<FilterOption>((route.query.category as FilterOption) || "all");
 const isDialogVisible = ref<boolean>(false);
 const selectedProject = ref<Project | null>(null);
 const activeImageIndex = ref<number>(0);
 
 // Array tipado estrictamente con la interfaz FilterCategoryItem
 const filterCategories: FilterCategoryItem[] = [
-  { label: 'Todos', value: 'all' },
-  { label: 'Muebles a Medida', value: ProjectCategory.CUSTOM_FURNITURE },
-  { label: 'Locales Comerciales', value: ProjectCategory.COMMERCIAL },
-  { label: 'Restauración', value: ProjectCategory.RESTORATION },
-  { label: 'Proyectos Especiales', value: ProjectCategory.SPECIAL_PROJECTS }
+  { label: "Todos", value: "all" },
+  { label: "Muebles a Medida", value: ProjectCategory.CUSTOM_FURNITURE },
+  { label: "Locales Comerciales", value: ProjectCategory.COMMERCIAL },
+  { label: "Restauración", value: ProjectCategory.RESTORATION },
+  { label: "Proyectos Especiales", value: ProjectCategory.SPECIAL_PROJECTS },
 ];
 
 const categoryDetails: Record<string, CategoryInfo> = {
   [ProjectCategory.CUSTOM_FURNITURE]: {
-    title: 'Muebles a Medida',
-    description: 'Diseñamos y construimos mobiliario exclusivo que se adapta milimétricamente a su espacio. Seleccionamos las maderas según las necesidades estructurales y estéticas de cada encargo, garantizando piezas únicas que combinan funcionalidad y ebanistería tradicional.'
+    title: "Muebles a Medida",
+    description:
+      "Diseñamos y construimos mobiliario exclusivo que se adapta milimétricamente a su espacio. Seleccionamos las maderas según las necesidades estructurales y estéticas de cada encargo, garantizando piezas únicas que combinan funcionalidad y ebanistería tradicional.",
   },
   [ProjectCategory.COMMERCIAL]: {
-    title: 'Locales Comerciales',
-    description: 'Trasladamos la identidad de su marca a la madera. Desarrollamos mostradores, estanterías y revestimientos para tiendas, restaurantes y hoteles, cumpliendo con los estándares de durabilidad y normativas exigidas para el alto tránsito.'
+    title: "Locales Comerciales",
+    description:
+      "Trasladamos la identidad de su marca a la madera. Desarrollamos mostradores, estanterías y revestimientos para tiendas, restaurantes y hoteles, cumpliendo con los estándares de durabilidad y normativas exigidas para el alto tránsito.",
   },
   [ProjectCategory.RESTORATION]: {
-    title: 'Restauración y Conservación',
-    description: 'Devolvemos la vida a muebles antiguos y estructuras de época. Nuestro proceso de restauración respeta las técnicas y acabados originales, consolidando la madera, tratando patologías y recuperando el esplendor histórico de cada pieza.'
+    title: "Restauración y Conservación",
+    description:
+      "Devolvemos la vida a muebles antiguos y estructuras de época. Nuestro proceso de restauración respeta las técnicas y acabados originales, consolidando la madera, tratando patologías y recuperando el esplendor histórico de cada pieza.",
   },
   [ProjectCategory.SPECIAL_PROJECTS]: {
-    title: 'Proyectos Especiales',
-    description: 'Soluciones estructurales y artísticas que desafían los estándares convencionales. Desde artesonados y escaleras de diseño hasta integraciones complejas de madera con metal o cristal para obras arquitectónicas singulares.'
-  }
+    title: "Proyectos Especiales",
+    description:
+      "Soluciones estructurales y artísticas que desafían los estándares convencionales. Desde artesonados y escaleras de diseño hasta integraciones complejas de madera con metal o cristal para obras arquitectónicas singulares.",
+  },
 };
 
 // Propiedad computada para gestionar de forma segura los detalles de la categoria activa.
 // Esto elimina el error de "Object is possibly 'undefined'" en la plantilla.
 const activeCategoryDetails = computed<CategoryInfo | null>(() => {
-  if (activeCategory.value === 'all') return null;
+  if (activeCategory.value === "all") return null;
   return categoryDetails[activeCategory.value] || null;
 });
 
 const filteredProjects = computed<Project[]>(() => {
-  if (activeCategory.value === 'all') {
+  if (activeCategory.value === "all") {
     return portfolioProjects;
   }
-  return portfolioProjects.filter(project => project.category === activeCategory.value);
+  return portfolioProjects.filter((project) => project.category === activeCategory.value);
 });
 
 // Metodo que sincroniza la URL con el estado local y actualiza los proyectos
 const setCategory = (category: FilterOption): void => {
   activeCategory.value = category;
-  
+
   router.push({
-    path: '/',
-    query: { category: category === 'all' ? undefined : category },
-    hash: '#portfolio'
+    path: "/",
+    query: { category: category === "all" ? undefined : category },
+    hash: "#portfolio",
   });
 };
 
@@ -232,15 +257,15 @@ watch(
     if (newCategory) {
       activeCategory.value = newCategory as FilterOption;
     } else {
-      activeCategory.value = 'all';
+      activeCategory.value = "all";
     }
-  }
+  },
 );
 
 // Metodo para abrir el detalle del proyecto
 const openProjectDetails = (project: Project): void => {
   selectedProject.value = project;
-  activeImageIndex.value = 0; 
+  activeImageIndex.value = 0;
   isDialogVisible.value = true;
 };
 </script>
