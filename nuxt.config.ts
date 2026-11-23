@@ -11,6 +11,11 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
 
+  // Dominio canónico (apex); lo usa @nuxtjs/sitemap
+  site: {
+    url: "https://hermanospelaez.com",
+  },
+
   primevue: {
     options: {
       unstyled: true,

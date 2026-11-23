@@ -62,6 +62,12 @@ The site is deployed on **Cloudflare Workers with static assets**, using Cloudfl
 
 **Needs owner:** confirm in the Cloudflare dashboard (Workers & Pages → `hnospelaez` → Settings → Build) that the build command is `npm run generate` and the output directory is `.output/public`, and that hermanospelaez.com keeps being served after this change.
 
+### Security headers and canonical domain
+
+Security and cache headers live in [`public/_headers`](./public/_headers) (CSP, HSTS, nosniff, referrer, permissions, immutable cache for `/_nuxt/*`). The canonical domain is the apex `https://hermanospelaez.com`; `www` must redirect to it.
+
+**Needs owner:** create a Cloudflare Redirect Rule `www.hermanospelaez.com/*` → `https://hermanospelaez.com/${1}` (301, preserve query string), with the `www` DNS record proxied. Details in [`docs/audit.md`](./docs/audit.md).
+
 ### Hosting history
 
 WordPress → GitHub Pages (GitHub Actions workflow, now removed, together with the `CNAME` file) → Cloudflare Workers (current).
