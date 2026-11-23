@@ -23,6 +23,10 @@ This project migrated the company's web presence from **WordPress** to a **Stati
 - **SEO & Analytics:** `@nuxtjs/sitemap`, `robots.txt`, `nuxt-gtag` (Consent Mode v2)
 - **Deployment:** Static output (`nuxt generate`) hosted on Cloudflare
 
+## Auditoría
+
+Estado inicial del repositorio y hallazgos priorizados: [`docs/audit.md`](./docs/audit.md). Mediciones Lighthouse previas: [`docs/lighthouse/before/`](./docs/lighthouse/before/README.md).
+
 ## Local Development
 
 ### Setup
