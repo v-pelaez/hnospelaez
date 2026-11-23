@@ -83,5 +83,13 @@
 </template>
 
 <script setup lang="ts">
+usePageSeo({
+  title: "Política de Cookies | Hnos. Peláez",
+  description:
+    "Información sobre las cookies técnicas y analíticas que utiliza hermanospelaez.com y cómo gestionarlas.",
+  path: "/cookies",
+  noindex: true,
+});
+
 const { choice, openSettings } = useCookieConsent();
 </script>

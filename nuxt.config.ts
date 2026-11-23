@@ -16,6 +16,11 @@ export default defineNuxtConfig({
     url: "https://hermanospelaez.com",
   },
 
+  // Páginas legales con noindex: fuera del sitemap
+  sitemap: {
+    exclude: ["/aviso-legal", "/cookies", "/politica-privacidad"],
+  },
+
   primevue: {
     options: {
       unstyled: true,

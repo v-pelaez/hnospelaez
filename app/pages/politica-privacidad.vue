@@ -17,8 +17,8 @@
         <h2 class="text-2xl font-bold text-white mb-4">1. Responsable del Tratamiento</h2>
         <p>
           El responsable del tratamiento de los datos personales recogidos a través de este sitio
-          web es Hnos. Peláez, con domicilio en Calle Juan de la Plz., Huelva, y correo electrónico
-          de contacto: carpinteriahermanospelaez@gmail.com.
+          web es Hnos. Peláez, con domicilio en Calle Juan de la Plaza 1, 3º B, 21007 Huelva, y
+          correo electrónico de contacto: carpinteriahermanospelaez@gmail.com.
         </p>
       </section>
 
@@ -64,4 +64,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+usePageSeo({
+  title: "Política de Privacidad | Hnos. Peláez",
+  description: "Cómo trata Hnos. Peláez los datos personales recogidos a través de su sitio web.",
+  path: "/politica-privacidad",
+  noindex: true,
+});
+</script>

@@ -63,4 +63,12 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+usePageSeo({
+  title: "Aviso Legal | Hnos. Peláez",
+  description:
+    "Aviso legal y datos identificativos de Carpintería Artesanal Hermanos Peláez S.L., Huelva.",
+  path: "/aviso-legal",
+  noindex: true,
+});
+</script>
