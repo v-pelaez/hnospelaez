@@ -21,14 +21,14 @@ This project migrated the company's web presence from **WordPress** to a **Stati
 - **Language:** TypeScript (strict mode + `nuxi typecheck` / `vue-tsc`)
 - **UI & Styling:** Tailwind CSS · PrimeVue 5 (`unstyled: true`)
 - **SEO & Analytics:** `@nuxtjs/sitemap`, `robots.txt`, `nuxt-gtag` (Consent Mode v2)
-- **Deployment:** Static output (`nuxt generate`) hosted on Cloudflare
+- **Deployment:** Static output (`nuxt generate`) served by Cloudflare Workers (static assets)
 
 ## Local Development
 
 ### Setup
 
 ```bash
-git clone [https://github.com/v-pelaez/hnospelaez.git](https://github.com/v-pelaez/hnospelaez.git)
+git clone https://github.com/v-pelaez/hnospelaez.git
 cd hnospelaez
 npm install
 ```
@@ -50,3 +50,18 @@ NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
 | `npm run generate` | Generate the static site for production |
 | `npm run build` | Build the application for production |
 | `npm run preview` | Preview the production build locally |
+
+## Deployment
+
+The site is deployed on **Cloudflare Workers with static assets**, using Cloudflare's Git integration (Worker/project `hnospelaez`, custom domain `hermanospelaez.com`). The configuration is versioned in [`wrangler.jsonc`](./wrangler.jsonc).
+
+- Push to `main` → Cloudflare builds (`npm run generate`) and publishes to production.
+- Push to any other branch → Cloudflare builds a preview deployment.
+- Build output directory: `.output/public`.
+- Optional local validation (no login needed): `npm run generate && npx wrangler deploy --dry-run`.
+
+**Needs owner:** confirm in the Cloudflare dashboard (Workers & Pages → `hnospelaez` → Settings → Build) that the build command is `npm run generate` and the output directory is `.output/public`, and that hermanospelaez.com keeps being served after this change.
+
+### Hosting history
+
+WordPress → GitHub Pages (GitHub Actions workflow, now removed, together with the `CNAME` file) → Cloudflare Workers (current).
