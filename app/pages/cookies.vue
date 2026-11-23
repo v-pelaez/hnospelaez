@@ -25,66 +25,35 @@
       <section>
         <h2 class="text-2xl font-bold text-white mb-4">2. ¿Qué tipos de cookies utiliza esta web?</h2>
         <ul class="list-disc pl-6 space-y-4 mt-4 text-neutral-400">
-          <li><strong class="text-neutral-200">Cookies técnicas:</strong> Son aquellas necesarias para el correcto funcionamiento de la página web.</li>
-          <li><strong class="text-neutral-200">Cookies de análisis (Google Analytics):</strong> Son aquellas que, tratadas por nosotros o por terceros, nos permiten cuantificar el número de usuarios y así realizar la medición y análisis estadístico de la utilización que hacen los usuarios del servicio ofertado.</li>
+          <li><strong class="text-neutral-200">Cookies técnicas:</strong> Son aquellas necesarias para el correcto funcionamiento de la página web. Esta web no instala cookies técnicas propias; guarda su elección de cookies en el almacenamiento local del navegador (clave <code>hnos_pelaez_cookie_consent</code>).</li>
+          <li><strong class="text-neutral-200">Cookies de análisis (Google Analytics 4, Google LLC):</strong> Solo se cargan si las acepta. Nos permiten cuantificar el número de usuarios y realizar la medición y análisis estadístico del uso de la web. Cookies habituales: <code>_ga</code> y <code>_ga_&lt;ID&gt;</code> (2 años). Solo se concede el permiso <code>analytics_storage</code>.</li>
         </ul>
+        <p class="mt-4">
+          Esta web no utiliza cookies publicitarias ni de personalización: los permisos <code>ad_storage</code>, <code>ad_user_data</code> y <code>ad_personalization</code> permanecen siempre denegados.
+        </p>
       </section>
 
       <section>
         <h2 class="text-2xl font-bold text-white mb-4">3. Revocación y eliminación de cookies</h2>
         <p>
-          Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en tu ordenador. Alternativamente, puedes gestionar tus preferencias a través del panel de configuración de cookies habilitado en este sitio web.
+          Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en tu ordenador. Además, puedes cambiar o retirar tu consentimiento en cualquier momento con el botón siguiente (o desde el enlace "Configurar cookies" del pie de página).
         </p>
+        <p class="mt-4 text-neutral-400">
+          Estado actual:
+          <strong class="text-neutral-200">{{ choice === 'accepted' ? 'cookies analíticas aceptadas' : choice === 'rejected' ? 'cookies analíticas rechazadas' : 'sin elección' }}</strong>
+        </p>
+        <button
+          type="button"
+          class="mt-4 px-6 py-2.5 rounded-lg bg-white text-neutral-900 font-bold hover:bg-neutral-200 transition-colors text-sm"
+          @click="openSettings"
+        >
+          Configurar cookies
+        </button>
       </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-
-// Extraemos la funcion gtag para enviar comandos directamente a Google Analytics
-const { gtag } = useGtag();
-
-const COOKIE_CONSENT_KEY: string = 'hnos_pelaez_cookie_consent';
-const isBannerVisible = ref<boolean>(false);
-
-const checkConsent = (): void => {
-  const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
-  
-  if (!consent) {
-    isBannerVisible.value = true;
-  } else if (consent === 'accepted') {
-    // Si ya aceptó previamente, actualizamos el estado en cada carga de página
-    updateConsentToGranted();
-  }
-};
-
-// Función para comunicar la aceptación a Google Analytics (Consent Mode v2)
-const updateConsentToGranted = (): void => {
-  gtag('consent', 'update', {
-    ad_storage: 'granted',
-    ad_user_data: 'granted',
-    ad_personalization: 'granted',
-    analytics_storage: 'granted'
-  });
-};
-
-const acceptCookies = (): void => {
-  localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-  isBannerVisible.value = false;
-  
-  // Cambiamos los permisos en tiempo real al hacer clic
-  updateConsentToGranted();
-};
-
-const rejectCookies = (): void => {
-  localStorage.setItem(COOKIE_CONSENT_KEY, 'rejected');
-  isBannerVisible.value = false;
-  // No necesitamos hacer nada extra con gtag() porque el estado por defecto ya es 'denied'
-};
-
-onMounted(() => {
-  checkConsent();
-});
+const { choice, openSettings } = useCookieConsent();
 </script>

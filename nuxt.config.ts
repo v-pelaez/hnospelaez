@@ -29,6 +29,8 @@ export default defineNuxtConfig({
   },
   gtag: {
     id: process.env.NUXT_PUBLIC_GTAG_ID || "",
+    // No cargar gtag.js hasta que el usuario acepte (lo hace useCookieConsent)
+    initMode: "manual",
     initCommands: [
       [
         "consent",
