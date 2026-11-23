@@ -23,7 +23,9 @@
             <NuxtLink to="/cookies" class="hover:text-white transition-colors">Cookies</NuxtLink>
           </li>
           <li>
-            <button type="button" class="hover:text-white transition-colors" @click="openSettings">Configurar cookies</button>
+            <button type="button" class="hover:text-white transition-colors" @click="openSettings">
+              Configurar cookies
+            </button>
           </li>
         </ul>
       </nav>
