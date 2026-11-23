@@ -1,0 +1,13 @@
+{
+  // Despliegue real: Cloudflare Workers con static assets (integracion Git).
+  // Push a `main` -> build en Cloudflare -> produccion. Otras ramas -> previews.
+  // PENDIENTE (dueno): confirmar en el panel de Cloudflare (Workers & Pages > hnospelaez > Settings > Build)
+  // que el comando de build es `npm run generate`, el directorio de salida `.output/public`,
+  // y que hermanospelaez.com sigue sirviendose tras este cambio.
+  "name": "hnospelaez",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": ".output/public",
+    "not_found_handling": "404-page"
+  }
+}
