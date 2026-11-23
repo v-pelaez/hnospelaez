@@ -11,14 +11,23 @@
       <img
         src="/images/hero-bg.webp"
         alt="Trabajos de carpintería y ebanistería a medida"
+        width="1920"
+        height="1280"
+        decoding="async"
         class="absolute inset-0 w-full h-full object-cover z-0"
-        fetchpriority="high"
       />
     </div>
 
     <div class="container mx-auto px-4 z-20 relative text-center max-w-5xl mt-12">
       <div class="mb-8">
-        <img src="/images/logo.svg" alt="Hnos. Peláez Logo" class="h-72 w-auto mx-auto block" />
+        <img
+          src="/images/logo.svg"
+          alt="Hnos. Peláez Logo"
+          width="184"
+          height="157"
+          fetchpriority="high"
+          class="h-72 w-auto mx-auto block"
+        />
       </div>
 
       <h1
