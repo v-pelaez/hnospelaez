@@ -1,0 +1,20 @@
+# Cabeceras de Cloudflare Workers static assets (se copia a .output/public).
+# CSP: Nuxt SSG inyecta scripts inline (payload, JSON-LD, init de gtag) y no hay nonces,
+# por eso script-src/style-src llevan 'unsafe-inline'. gtag/GTM necesita los hosts de Google.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://*.googletagmanager.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Assets con hash de contenido: inmutables un año
+/_nuxt/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable
+
+# Imagenes y favicon sin hash: caché moderada
+/images/*
+  ! Cache-Control
+  Cache-Control: public, max-age=86400

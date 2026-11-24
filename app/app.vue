@@ -19,54 +19,68 @@
 </template>
 
 <script setup lang="ts">
-import { useHead } from "#imports";
+import { useHead, useSeoMeta } from "#imports";
 
-// Definicion de los datos estructurados para Google (LocalBusiness)
+// Datos estructurados para Google (LocalBusiness). Dirección y teléfono idénticos
+// al aviso legal y a ContactSection; horario tomado de ContactSection.
+// Pendiente del dueño (no constan en el código, no se inventan): sameAs (redes), geo, priceRange.
+const SITE_URL = "https://hermanospelaez.com";
 const businessSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Hnos. Peláez Carpinteria Artesanal",
-  image: "https://www.hermanospelaez.com/images/hero-bg.webp",
-  "@id": "https://www.hermanospelaez.com",
-  url: "https://www.hermanospelaez.com",
+  "@type": "HomeAndConstructionBusiness",
+  "@id": `${SITE_URL}/#business`,
+  name: "Hnos. Peláez Carpintería Artesanal",
+  legalName: "Carpinteria Artesanal Hermanos Peláez S.L.",
+  description:
+    "Carpintería artesanal en Huelva. Muebles a medida, locales comerciales y ebanistería con maderas nobles.",
+  image: `${SITE_URL}/images/seoimage.webp`,
+  url: `${SITE_URL}/`,
   telephone: "+34635518659",
+  email: "carpinteriahermanospelaez@gmail.com",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Calle Juan de la Plaza 1",
+    streetAddress: "Calle Juan de la Plaza 1, 3º B",
     addressLocality: "Huelva",
     postalCode: "21007",
     addressRegion: "Andalucía",
     addressCountry: "ES",
   },
-};
-
-// Inyeccion de metadatos y schema en el head del documento
-useHead({
-  title: "Hnos. Peláez | Ebanistería y Carpintería en Huelva",
-  meta: [
+  areaServed: { "@type": "City", name: "Huelva" },
+  openingHoursSpecification: [
     {
-      name: "description",
-      content:
-        "Carpintería artesanal en Huelva. Diseñamos y fabricamos muebles a medida, locales comerciales y proyectos de ebanistería con maderas nobles y técnicas tradicionales.",
-    },
-    {
-      name: "geo.region",
-      content: "ES-H",
-    },
-    {
-      name: "geo.placename",
-      content: "Huelva",
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "18:00",
     },
   ],
-  htmlAttrs: {
-    lang: "es",
-  },
+};
+
+// Metadatos globales; title/description/canonical/og:title/og:url los define cada página (usePageSeo)
+useHead({
+  htmlAttrs: { lang: "es" },
+  meta: [
+    { name: "geo.region", content: "ES-H" },
+    { name: "geo.placename", content: "Huelva" },
+  ],
   script: [
     {
       type: "application/ld+json",
       innerHTML: JSON.stringify(businessSchema),
     },
   ],
+});
+
+useSeoMeta({
+  ogSiteName: "Hnos. Peláez",
+  ogLocale: "es_ES",
+  ogType: "website",
+  ogImage: `${SITE_URL}/images/seoimage.webp`,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: "Hnos. Peláez, carpintería artesanal en Huelva",
+  twitterCard: "summary_large_image",
+  twitterImage: `${SITE_URL}/images/seoimage.webp`,
 });
 </script>
 
@@ -75,7 +89,12 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Kill-switch PrimeUI */
+/*
+  Kill-switch PrimeUI: el módulo de PrimeUI inyecta un host (#p-license-host, z-index máximo)
+  con un aviso rojo "Invalid PrimeUI License" que tapa el botón "Aceptar" del banner de cookies.
+  Comprobado con generate + servidor local + Edge headless: sin esta regla el aviso aparece.
+  Se mantiene hasta retirar @primevue/nuxt-module (no se usa ningún componente; ver audit.md C6).
+*/
 div[style*="z-index: 99999"],
 div[style*="z-index: 2147483647"] {
   display: none !important;

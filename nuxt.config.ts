@@ -1,15 +1,20 @@
 // Configuración base de Nuxt para generar el sitio estático (SSG)
 export default defineNuxtConfig({
 
-  // // Ajuste temporal para ver la web en la URL de GitHub
-  // app: {
-  //   baseURL: '/hnospelaez/' // IMPORTANTE
-  // },
-
   // Establezco la fecha de compatibilidad para evitar cambios abruptos en futuras actualizaciones
   compatibilityDate: "2026-07-29",
 
-  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap",'@nuxtjs/sitemap'],
+  modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss", "@primevue/nuxt-module", "nuxt-gtag", "@nuxtjs/sitemap"],
+
+  // Dominio canónico (apex); lo usa @nuxtjs/sitemap
+  site: {
+    url: "https://hermanospelaez.com",
+  },
+
+  // Páginas legales con noindex: fuera del sitemap
+  sitemap: {
+    exclude: ["/aviso-legal", "/cookies", "/politica-privacidad"],
+  },
 
   primevue: {
     options: {
@@ -22,6 +27,7 @@ export default defineNuxtConfig({
     "/**": { prerender: true },
   },
 
+  // typeCheck se mantiene en false en dev para no bloquear Vite; el chequeo se hace con `npm run typecheck` (y `npm run check`)
   // Mantengo TypeScript estricto, pero delego el chequeo en tiempo real para evitar bloqueos del servidor Vite
   typescript: {
     strict: true,
@@ -29,6 +35,8 @@ export default defineNuxtConfig({
   },
   gtag: {
     id: process.env.NUXT_PUBLIC_GTAG_ID || "",
+    // No cargar gtag.js hasta que el usuario acepte (lo hace useCookieConsent)
+    initMode: "manual",
     initCommands: [
       [
         "consent",
@@ -43,7 +51,5 @@ export default defineNuxtConfig({
       ],
     ],
   },
-  // nitro: { preset: "github-pages" },
-
   devtools: { enabled: false },
 });
