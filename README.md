@@ -10,7 +10,7 @@ Production corporate website for a local carpentry business, live at **[hermanos
 This project migrated the company's web presence from **WordPress** to a **Static Site Generation (SSG)** architecture to meet a tight delivery schedule, eliminate CMS and backend maintenance overhead, and prioritize performance and technical SEO.
 
 - **Zero-backend static showcase:** As an informational showcase for a local SME that requires no authentication or dynamic transactions, backend infrastructure was intentionally omitted. Customer inquiries are handled directly via **WhatsApp** and **`mailto:`** links.
-- **JSON-driven catalog:** Showcase entries (asset paths and descriptions) are decoupled into a local JSON data source, keeping occasional client updates simple and version-controlled without a CMS.
+- **Data-driven content:** Client entries live in a local typed data file (`app/data/clients.ts`), decoupled from the components, so occasional updates stay simple and version-controlled without a CMS.
 - **Full static prerendering (SSG):** All routes are prerendered at build time with Nuxt and served through Cloudflare.
 - **Privacy-first analytics (GDPR):** Configured with `nuxt-gtag` and **Google Consent Mode v2**, defaulting storage and analytics signals to `denied` until explicit user consent is granted.
 - **Unstyled UI architecture:** Uses **PrimeVue 5** in `unstyled` mode alongside **Tailwind CSS** for full styling control.
