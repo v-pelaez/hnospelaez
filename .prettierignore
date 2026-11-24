@@ -1,0 +1,16 @@
+.nuxt
+.output
+dist
+node_modules
+package-lock.json
+public
+docs
+.github
+README.md
+nuxt.config.ts
+nuxt.d.ts
+tailwind.config.js
+tsconfig.json
+
+# Wrangler config: Prettier would add trailing commas to JSONC
+wrangler.jsonc

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, typecheck and generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # Nuxt 4 requires Node ^22.22.3 || ^24.15.0 (Node 20 is not supported).
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check (lint, format and typecheck)
+        run: npm run check
+
+      # NUXT_PUBLIC_GTAG_ID is intentionally not set: no secrets in PR builds.
+      - name: Generate static site
+        run: npm run generate
