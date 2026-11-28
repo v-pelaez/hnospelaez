@@ -83,3 +83,9 @@ Security and cache headers live in [`public/_headers`](./public/_headers) (CSP, 
 ### Hosting history
 
 WordPress → GitHub Pages (GitHub Actions workflow, now removed, together with the `CNAME` file) → Cloudflare Workers (current).
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+The Hermanos Peláez name, logo, brand assets and photographs are not covered by this license; all rights reserved.
