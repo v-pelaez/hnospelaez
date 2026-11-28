@@ -88,4 +88,4 @@ WordPress → GitHub Pages (GitHub Actions workflow, now removed, together with 
 
 This project is licensed under the [MIT License](./LICENSE).
 
-The Hermanos Peláez name, logo, brand assets and photographs are not covered by this license; all rights reserved.
+The Hermanos Peláez name, logo, brand assets and photographs are not covered by this license; all rights reserved. See [NOTICE](./NOTICE).
